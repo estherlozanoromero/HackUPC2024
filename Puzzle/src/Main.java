@@ -2,13 +2,13 @@ import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {            
-        Controller controller = new Controller();
+        //Controller controller = new Controller();
         Interface inter = new Interface();
 
         inter.createMenu();
         inter.iniMenuWindow();
 
-        Runnable getMinMoves = () -> {
+        /*Runnable getMinMoves = () -> {
             controller.executeAlgorithm();
         };
 
@@ -26,6 +26,6 @@ public class Main {
 
         controller.Score();
         
-        }
+        }*/
     }
 }
