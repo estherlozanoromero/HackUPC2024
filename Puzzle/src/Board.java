@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Board {
     public int[][] state;
@@ -14,8 +15,8 @@ public class Board {
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
                 if (state[i][j] == -1) {
-                    gapx = i;
-                    gapy = j;
+                    gapy = i;
+                    gapx = j;
                 }
             }
         }
@@ -37,20 +38,73 @@ public class Board {
         gapy = posy;
         state[gapx][gapy] = -1;
     }
+
     private void initBoard() {
-        int num = -1;
+        int num = 0;
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
                 state[i][j] = num;
                 ++num;
             }
         }
+        state[size-1][size-1] = -1;
 
+        Random rand = new Random();
+        for (int i = 0; i < 20; ++i) {
+            int posx = rand.nextInt(size);
+            int posy = rand.nextInt(size);
+            if (posx+posy == (size-1)*2) --posx;
+            swap(posx, posy);
+
+            posx = rand.nextInt(size);
+            posy = rand.nextInt(size);
+            if (posx+posy == (size-1)*2) --posy;
+            swap(posx, posy);
+        }
+    }
+
+    private void swap(int posx, int posy) {
+        int aux = state[0][0];
+        state[0][0] = state[posx][posy];
+        state[posx][posy] = aux;
     }
 
     public boolean checkMove(int posx, int posy) {
+        if (posx >= size || posy >= size) return false;
         return (Math.abs(posx - gapx) == 1 && Math.abs(posy - gapy) == 0) || (Math.abs(posx - gapx) == 0 && Math.abs(posy - gapy) == 1);
     }
 
     public int getSize() {return size;}
+
+    public boolean solved() {
+        int num = 0;
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j) {
+                if (num == size*size - 1) return true;
+                if (state[i][j] != num) return false;
+                ++num;
+            }
+        }
+    }
+
+    public static int[][] getMoves(int size, int gapx, int gapy) {
+        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
+        if (gapx < size - 1) moves.add(new ArrayList<>(List.of(gapx + 1, gapy)));
+        if (gapx > 0) moves.add(new ArrayList<>(List.of(gapx - 1, gapy)));
+        if (gapy < size - 1) moves.add(new ArrayList<>(List.of(gapx, gapy + 1)));
+        if (gapy > 0) moves.add(new ArrayList<>(List.of(gapx, gapy - 1)));
+
+        int[][] movesArray = new int[moves.size()][2];
+        for (int i = 0; i < moves.size(); i++) {
+            ArrayList<Integer> move = moves.get(i);
+            movesArray[i][0] = move.get(0);
+            movesArray[i][1] = move.get(1);
+        }
+
+        return movesArray;
+    }
+
+    public int[] getGapPos() {
+        return new int[]{gapx, gapy};
+    }
 }
