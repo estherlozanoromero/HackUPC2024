@@ -34,7 +34,7 @@ public class AStarAlgorithm {
 
     // Función para encontrar el camino más corto usando el algoritmo A*
     public int aStar(Board boardIni) {
-        Set<int> visited = new HashSet<>();
+        Set<Integer> visited = new HashSet<>();
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.actualCost + node.heuristicCost));
 
         int calculated_heuristic = calculate_heuristic(boardIni);

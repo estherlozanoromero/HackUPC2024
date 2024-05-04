@@ -1,14 +1,19 @@
 public class Main {
     public static void main(String[] args) {            
-        Controller controller = new Controller();
+       // Controller controller = new Controller();
+        Interface inter = new Interface();
 
-        while (!controller.getSolved()) {
+        inter.createMenu();
+        inter.iniMenuWindow();
+
+        /*while (!controller.getSolved()) {
+
             controller.printBoard();
 
             controller.move();
         }
 
-        controller.Score();
+        controller.Score(); */
         
     }
 }
