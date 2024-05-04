@@ -46,24 +46,24 @@ public class ImageManager {
                 originalImage = scaleImageToFit(originalImage, windowSize, windowSize);
 
                 // Calculate the size of each piece
-                int pieceSize = windowSize / 3;
+                int pieceSize = windowSize / panelSize;
 
                 int heightOffset = (originalImage.getHeight()-windowSize)/2;
                 int widthOffset = (originalImage.getWidth()-windowSize)/2;
 
                 // Create an array to hold the 9 pieces
-                BufferedImage[] pieces = new BufferedImage[9];
+                BufferedImage[] pieces = new BufferedImage[panelSize*panelSize];
 
                 // Divide the image into 9 pieces
-                for (int row = 0; row < 3; row++) {
-                    for (int col = 0; col < 3; col++) {
+                for (int row = 0; row < panelSize; row++) {
+                    for (int col = 0; col < panelSize; col++) {
                         // Create a new BufferedImage for each piece
-                        pieces[row * 3 + col] = originalImage.getSubimage(widthOffset + col * pieceSize,  heightOffset + row * pieceSize, pieceSize, pieceSize);
+                        pieces[row * panelSize + col] = originalImage.getSubimage(widthOffset + col * pieceSize,  heightOffset + row * pieceSize, pieceSize, pieceSize);
                     }
                 }
 
                 // Save or display the pieces as needed
-                for (int i = 0; i < 9; i++) {
+                for (int i = 0; i < panelSize*panelSize; i++) {
                     ImageIO.write(pieces[i], "jpg", new File("images/img" + i + ".jpg"));
                 }
             } catch (IOException e) {

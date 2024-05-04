@@ -49,6 +49,10 @@ public class Interface {
         this.level = numLevel;
     }
 
+    public void setImage() {
+        ImageManager.getImageAndCrop(window.getHeight(), 3);
+    }
+
     public void closeApp() {
 
     }

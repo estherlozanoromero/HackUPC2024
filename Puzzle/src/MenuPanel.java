@@ -30,6 +30,7 @@ public class MenuPanel extends JPanel {
         JButton exit = new JButton("Exit");
 
         this.level = new JButton("Easy");
+        JButton setImg = new JButton("Set Image");
 
 
         // Button size
@@ -44,6 +45,10 @@ public class MenuPanel extends JPanel {
         this.level.setPreferredSize(buttonlevelSize);
         this.level.setMaximumSize(buttonlevelSize);
 
+        setImg.setMinimumSize(buttonlevelSize);
+        setImg.setPreferredSize(buttonlevelSize);
+        setImg.setMaximumSize(buttonlevelSize);
+
         exit.setMinimumSize(buttonSize);
         exit.setPreferredSize(buttonSize);
         exit.setMaximumSize(buttonSize);
@@ -52,6 +57,8 @@ public class MenuPanel extends JPanel {
         panelButton.add(play);
         panelButton.add(Box.createVerticalStrut(10));
         panelButton.add(this.level);
+        panelButton.add(Box.createVerticalStrut(10));
+        panelButton.add(setImg);
         panelButton.add(Box.createVerticalStrut(10));
         panelButton.add(exit);
 
@@ -65,6 +72,8 @@ public class MenuPanel extends JPanel {
             changeLevel();
             inter.setLevel(numLevel);
         });
+
+        setImg.addActionListener(e -> inter.setImage());
 
         exit.addActionListener(e -> inter.closeApp());
 
@@ -81,6 +90,7 @@ public class MenuPanel extends JPanel {
 
         play.addKeyListener(keyAdapter);
         this.level.addKeyListener(keyAdapter);
+        setImg.addKeyListener(keyAdapter);
         exit.addKeyListener(keyAdapter);
     }
 

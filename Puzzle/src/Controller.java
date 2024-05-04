@@ -5,7 +5,7 @@ public class Controller {
     private Scanner scanner = new Scanner(System.in);
     private int minMoves;
     private int totalMoves;
-
+    
     public Controller(int level) {
         int size = 3;
         if(level == 0) {
