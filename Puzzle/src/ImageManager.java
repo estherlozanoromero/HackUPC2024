@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageManager {
-    public static BufferedImage scaleImageToFit(BufferedImage originalImage, int targetWidth, int targetHeight) {
+    private static BufferedImage scaleImageToFit(BufferedImage originalImage, int targetWidth, int targetHeight) {
         // Calculate scaling factors to fit the image within the target dimensions
         double scaleX = (double) targetWidth / originalImage.getWidth();
         double scaleY = (double) targetHeight / originalImage.getHeight();
