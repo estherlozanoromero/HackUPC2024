@@ -11,8 +11,7 @@ public class Controller {
         int size = scanner.nextInt();
         
         board = new Board(size);
-        AStarAlgorithm algorithm = new AStarAlgorithm();
-        minMoves = algorithm.aStar(board); // TODO
+        minMoves = AStarAlgorithm.aStar(board); // TODO
         System.out.println(minMoves);
     }
 

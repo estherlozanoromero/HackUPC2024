@@ -1,8 +1,6 @@
 import java.util.*;
 
 public class AStarAlgorithm {
-    private Node start;
-    private Node goal;
     private static class Node {
         Board board;
         int heuristicCost; // Coste heurístico (distancia estimada al nodo objetivo)
@@ -13,10 +11,6 @@ public class AStarAlgorithm {
             this.heuristicCost = heuristicCost;
             this.actualCost = actualCost;
         }
-    }
-
-    public  AStarAlgorithm() {
-
     }
 
     public static int encode(int[][] matrix) {
@@ -33,7 +27,8 @@ public class AStarAlgorithm {
     }
 
     // Función para encontrar el camino más corto usando el algoritmo A*
-    public int aStar(Board boardIni) {
+    public static int aStar(Board boardIni) {
+        Node start;
         Set<Integer> visited = new HashSet<>();
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.actualCost + node.heuristicCost));
 
@@ -75,7 +70,7 @@ public class AStarAlgorithm {
         return -1;
     }
 
-    private int calculate_heuristic(Board board) {
+    private static int calculate_heuristic(Board board) {
         int heuristic = 0;
         for (int i = 0; i < board.getSize(); ++i) {
             for(int j = 0; j < board.getSize(); ++j) {
@@ -85,7 +80,7 @@ public class AStarAlgorithm {
         return heuristic;
     }
 
-    private int calculate_dist(int x1, int y1, int id, int size) {
+    private static int calculate_dist(int x1, int y1, int id, int size) {
         int x2, y2;
         if(id != -1) {
             x2 = id / size;

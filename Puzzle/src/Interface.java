@@ -43,6 +43,10 @@ public class Interface {
 
     }
 
+    public void setImage() {
+        ImageManager.getImageAndCrop(window.getHeight(), 3);
+    }
+
     public void closeApp() {
 
     }
