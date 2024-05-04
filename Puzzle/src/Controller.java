@@ -13,6 +13,7 @@ public class Controller {
         board = new Board(size);
         AStarAlgorithm algorithm = new AStarAlgorithm();
         minMoves = algorithm.aStar(board); // TODO
+        System.out.println(minMoves);
     }
 
     public void printBoard(){

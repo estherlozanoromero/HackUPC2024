@@ -22,7 +22,7 @@ public class AStarAlgorithm {
     // Función para encontrar el camino más corto usando el algoritmo A*
     public int aStar(Board boardIni) {
         Set<Node> visited = new HashSet<>();
-        PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingDouble(n -> n.actualCost + n.heuristicCost));
+        PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.actualCost + node.heuristicCost));
 
         int calculated_heuristic = calculate_heuristic(boardIni);
         start = new Node (boardIni, calculated_heuristic, 0);
@@ -30,12 +30,13 @@ public class AStarAlgorithm {
 
         while (!queue.isEmpty()) {
             Node current = queue.poll();
+            System.out.println("Checking board:");
+            current.board.printBoard();
+            System.out.println("actualCost: "+current.actualCost+" heuristicCost: "+current.heuristicCost);
 
             if (current.board.solved()) {
                 return current.actualCost;
             }
-
-            visited.add(current);
 
             int[][] moves = current.board.getMoves();
 
@@ -43,14 +44,15 @@ public class AStarAlgorithm {
                 Board board_neighbour = new Board(current.board);
                 int actual_dist = calculate_dist(moves[i][0], moves[i][1], board_neighbour.state[moves[i][0]][moves[i][1]], board_neighbour.getSize());
                 int[] blanked_pos = board_neighbour.getGapPos();
-                board_neighbour.move(moves[i][0], moves[i][2]);
-                int neighbour_dist = calculate_dist(moves[i][0], moves[i][1], board_neighbour.state[blanked_pos[0]][blanked_pos[1]], board_neighbour.getSize());
+                board_neighbour.move(moves[i][0], moves[i][1]);
+                int neighbour_dist = calculate_dist(blanked_pos[0], blanked_pos[1], board_neighbour.state[blanked_pos[0]][blanked_pos[1]], board_neighbour.getSize());
 
                 Node neighbor;
                 if (neighbour_dist > actual_dist)
                      neighbor = new Node(board_neighbour, current.heuristicCost+1, current.actualCost+1);
                 else
                     neighbor = new Node(board_neighbour, current.heuristicCost-1, current.actualCost+1);
+
                 queue.add(neighbor);
             }
         }

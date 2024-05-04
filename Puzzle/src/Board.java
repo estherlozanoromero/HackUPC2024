@@ -50,7 +50,7 @@ public class Board {
         state[size-1][size-1] = -1;
 
         Random rand = new Random();
-        for (int i = 0; i < 20; ++i) {
+        //for (int i = 0; i < 20; ++i) {
             int posx = rand.nextInt(size);
             int posy = rand.nextInt(size);
             if (posx+posy == (size-1)*2) --posx;
@@ -60,7 +60,7 @@ public class Board {
             posy = rand.nextInt(size);
             if (posx+posy == (size-1)*2) --posy;
             swap(posx, posy);
-        }
+        //}
     }
 
     private void swap(int posx, int posy) {
@@ -127,5 +127,14 @@ public class Board {
 
     public int[] getGapPos() {
         return new int[]{gapx, gapy};
+    }
+
+    public void printBoard(){
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                System.out.print(state[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }
