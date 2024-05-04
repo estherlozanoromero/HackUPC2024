@@ -1,6 +1,13 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("What is the grid size?");
+        int size = scanner.nextInt();
+        
+        Controller controller = new Controller(size);
+        controller.printBoard();
     }
-
 }

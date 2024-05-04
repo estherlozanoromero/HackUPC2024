@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Board {
     public int[][] state;
+    
     public Board (int num) {
         state = new int[num][num];
         random();
