@@ -8,6 +8,14 @@ public class Main {
         int size = scanner.nextInt();
         
         Controller controller = new Controller(size);
-        controller.printBoard();
+        boolean exit = false;
+
+        while (!exit) {
+            controller.clearConsole();
+            controller.printBoard();
+
+            controller.move();
+        }
+        
     }
 }
