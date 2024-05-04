@@ -70,7 +70,7 @@ public class Interface {
     }
 
     public void setImage() {
-        ImageManager.getImageAndCrop(window.getHeight(), 3);
+        ImageManager.getImageAndCrop(window.getHeight(), this.level);
     }
 
     public void closeApp() {
