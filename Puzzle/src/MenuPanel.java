@@ -61,13 +61,9 @@ public class MenuPanel extends JPanel {
         // Button listeners
         play.addActionListener(e -> inter.play());
 
-        this.level.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                changeLevel();
-                //inter.setLevel(numLevel);
-            }
+        this.level.addActionListener(e -> {
+            changeLevel();
+            inter.setLevel(numLevel);
         });
 
         exit.addActionListener(e -> inter.closeApp());

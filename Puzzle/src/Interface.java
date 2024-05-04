@@ -4,6 +4,7 @@ public class Interface {
 
     private JFrame window;
     private MenuPanel menuPanel;
+    private GameInterface gameInterface;
 
 
     public Interface() {
@@ -13,6 +14,7 @@ public class Interface {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.menuPanel = new MenuPanel(this);
+        this.gameInterface = new GameInterface(this);
     }
 
     public void createMenu() {
@@ -30,7 +32,11 @@ public class Interface {
     }
 
     public void play() {
-
+        window.getContentPane().removeAll();
+        window.add(gameInterface);
+        window.setJMenuBar(null);
+        window.revalidate();
+        window.repaint();
     }
 
     public void setLevel(int numLevel) {
