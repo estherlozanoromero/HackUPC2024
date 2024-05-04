@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="d3922574-4836-4d5c-a1f0-9e32bab4bd71" name="Changes" comment="board class" />
+=======
+    <list default="true" id="d3922574-4836-4d5c-a1f0-9e32bab4bd71" name="Changes" comment="board class">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Puzzle/src/AStarAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/Puzzle/src/AStarAlgorithm.java" afterDir="false" />
+    </list>
+>>>>>>> alex1
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,6 +54,10 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+<<<<<<< HEAD
+=======
+    "git-widget-placeholder": "alex1",
+>>>>>>> alex1
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Àlex Keller/Documents/HACKUPC/HackUPC2024/Puzzle",
     "project.structure.last.edited": "Project",

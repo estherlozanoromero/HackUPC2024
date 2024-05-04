@@ -19,9 +19,22 @@ public class AStarAlgorithm {
 
     }
 
+    public static int encode(int[][] matrix) {
+        int encoded = 0;
+        int numRows = matrix.length;
+        int numCols = matrix[0].length;
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                encoded = encoded * (numRows * numCols - 1) + (matrix[i][j] + 1);
+            }
+        }
+        return encoded;
+    }
+
     // Función para encontrar el camino más corto usando el algoritmo A*
     public int aStar(Board boardIni) {
-        Set<Node> visited = new HashSet<>();
+        Set<Integer> visited = new HashSet<>();
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.actualCost + node.heuristicCost));
 
         int calculated_heuristic = calculate_heuristic(boardIni);
@@ -30,6 +43,8 @@ public class AStarAlgorithm {
 
         while (!queue.isEmpty()) {
             Node current = queue.poll();
+            visited.add(encode(current.board.state));
+
             System.out.println("Checking board:");
             current.board.printBoard();
             System.out.println("actualCost: "+current.actualCost+" heuristicCost: "+current.heuristicCost);
@@ -53,7 +68,8 @@ public class AStarAlgorithm {
                 else
                     neighbor = new Node(board_neighbour, current.heuristicCost-1, current.actualCost+1);
 
-                queue.add(neighbor);
+                if (!visited.contains(neighbor.board.state))
+                    queue.add(neighbor);
             }
         }
         return -1;
