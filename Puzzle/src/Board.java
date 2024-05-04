@@ -16,8 +16,8 @@ public class Board {
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
                 if (state[i][j] == -1) {
-                    gapy = i;
-                    gapx = j;
+                    gapx = i;
+                    gapy = j;
                 }
             }
         }
@@ -39,7 +39,40 @@ public class Board {
         gapy = posy;
         state[gapx][gapy] = -1;
     }
-    
+
+    private int[] idxToPos(int idx) {
+        int[] pos = new int[2];
+        pos[0] = idx/size;
+        pos[1] = idx%size;
+        return pos;
+    }
+
+    private int posToIdx(int posx, int posy) {
+        return posx*size+posy;
+    }
+
+    public void randMove() {
+        int idx = posToIdx(gapx, gapy);
+        List<Integer> poss = new ArrayList<>();
+
+        if (gapy > 0) {
+            poss.add(idx - 1);
+        }
+        if (gapy < size - 1) {
+            poss.add(idx + 1);
+        }
+        if (gapx > 0) {
+            poss.add(idx - size);
+        }
+        if (gapx < size - 1) {
+            poss.add(idx + size);
+        }
+
+        Random rand = new Random();
+        int swi = poss.get(rand.nextInt(poss.size()));
+        move(idxToPos(swi)[0], idxToPos(swi)[1]);
+    }
+
     private void initBoard() {
         int num = 0;
         for (int i = 0; i < size; ++i) {
@@ -49,25 +82,11 @@ public class Board {
             }
         }
         state[size-1][size-1] = -1;
+        gapx = gapy = size-1;
 
-        Random rand = new Random();
-        //for (int i = 0; i < 20; ++i) {
-            int posx = rand.nextInt(size);
-            int posy = rand.nextInt(size);
-            if (posx+posy == (size-1)*2) --posx;
-            swap(posx, posy);
-
-            posx = rand.nextInt(size);
-            posy = rand.nextInt(size);
-            if (posx+posy == (size-1)*2) --posy;
-            swap(posx, posy);
-        //}
-    }
-
-    private void swap(int posx, int posy) {
-        int aux = state[0][0];
-        state[0][0] = state[posx][posy];
-        state[posx][posy] = aux;
+        for (int i = 0; i < 100; ++i) {
+            randMove();
+        }
     }
 
     public boolean checkMove(int posx, int posy) {
