@@ -8,7 +8,7 @@ public class Main {
         inter.createMenu();
         inter.iniMenuWindow();
 
-       /* Runnable getMinMoves = () -> {
+        /*Runnable getMinMoves = () -> {
             controller.executeAlgorithm();
         };
 
