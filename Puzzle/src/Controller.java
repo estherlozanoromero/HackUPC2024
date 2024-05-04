@@ -55,9 +55,17 @@ public class Controller {
     }
 
     public boolean getSolved(){
-        return board.solved(); // TODO
+        return board.solved();
     }
 
+    public int getSize(){
+        return board.getSize();
+    }
+
+    public int[][] getState(){
+        return board.state;
+    }
+    
     public void updateMoves(){
         totalMoves++;
     }
@@ -78,4 +86,5 @@ public class Controller {
         System.out.println("Your score is: "+scoreStates[finalScore]);
     }
 
+    
 }
