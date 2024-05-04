@@ -40,14 +40,14 @@ public class Board {
         state[gapx][gapy] = -1;
     }
 
-    private int[] idxToPos(int idx) {
+    public int[] idxToPos(int idx) {
         int[] pos = new int[2];
         pos[0] = idx/size;
         pos[1] = idx%size;
         return pos;
     }
 
-    private int posToIdx(int posx, int posy) {
+    public int posToIdx(int posx, int posy) {
         return posx*size+posy;
     }
 

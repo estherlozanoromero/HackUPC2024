@@ -2,9 +2,12 @@ import javax.swing.*;
 
 public class Interface {
 
+    private Controller ctrl;
     private JFrame window;
     private MenuPanel menuPanel;
     private GameInterface gameInterface;
+
+    private int level;
 
 
     public Interface() {
@@ -14,7 +17,6 @@ public class Interface {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.menuPanel = new MenuPanel(this);
-        //this.gameInterface = new GameInterface(int GridSize, int[][] gameState);
     }
 
     public void createMenu() {
@@ -32,6 +34,10 @@ public class Interface {
     }
 
     public void play() {
+        this.ctrl = new Controller(this.level);
+        this.gameInterface = new GameInterface(this, this.ctrl.getSize(), this.ctrl.getState());
+
+
         window.getContentPane().removeAll();
         window.add(gameInterface);
         window.setJMenuBar(null);
@@ -40,11 +46,19 @@ public class Interface {
     }
 
     public void setLevel(int numLevel) {
-
+        this.level = numLevel;
     }
 
     public void closeApp() {
 
+    }
+
+    public int[][] getState() {
+        return this.ctrl.getState();
+    }
+
+    public void movePiece(int numeroInt) {
+        this.ctrl.move(numeroInt);
     }
 }
 

@@ -6,14 +6,21 @@ public class Controller {
     private int minMoves;
     private int totalMoves;
 
-    public Controller(){
-        System.out.println("What is the grid size?");
-        int size = scanner.nextInt();
-        
-        board = new Board(size);
+    public Controller(int level) {
+        int size = 3;
+        if(level == 0) {
+            size = 3;
+        } else if(level == 1) {
+            size = 4;
+        } else if (level == 2) {
+            size = 5;
+        }
+        this.board = new Board(size);
+    }
+
+    public void executeAlgorithm() {
         AStarAlgorithm algorithm = new AStarAlgorithm();
-        minMoves = algorithm.aStar(board); // TODO
-        System.out.println(minMoves);
+        this.minMoves = algorithm.aStar(board);
     }
 
     public void printBoard(){
@@ -36,21 +43,11 @@ public class Controller {
         }
     }
 
-    public void move(){
-        System.out.println("What tile do you want to move?");
-        System.out.println("(Top left corner is 0,0)");
-        System.out.println();
-        System.out.println("Row position");
-        int moveRow = scanner.nextInt();
-        System.out.println("Column position");
-        int moveCol = scanner.nextInt();
-
-        if(board.checkMove(moveRow, moveCol)) {
-            board.move(moveRow, moveCol);
-        } else {
-            move();
+    public void move(int id){
+        int[] pos = board.idxToPos(id);
+        if(board.checkMove(pos[0], pos[1])) {
+            board.move(pos[0], pos[1]);
         }
-
         updateMoves();
     }
 
@@ -70,6 +67,10 @@ public class Controller {
         totalMoves++;
     }
 
+    public int getMinMoves() {
+        return minMoves;
+    }
+
     public void Score(){
         double decScore = totalMoves / minMoves;
         int finalScore;
@@ -85,6 +86,4 @@ public class Controller {
         clearConsole();
         System.out.println("Your score is: "+scoreStates[finalScore]);
     }
-
-    
 }

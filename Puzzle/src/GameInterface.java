@@ -3,29 +3,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameInterface extends JFrame { // TODO Cambiar a JPanel
+public class GameInterface extends JPanel {
     private JPanel gridPanel;
     private int gridSize;
 
-    public GameInterface(int GridSize, int[][] gameState) {// TODO Añadir interface
-        setTitle("Puzzle Game"); // TODO eliminar
-        setDefaultCloseOperation(EXIT_ON_CLOSE); // TODO eliminar
-        setSize(300,300); // TODO eliminar
+    public GameInterface(Interface inter, int GridSize, int[][] gameState) {
 
         gridSize = GridSize;
 
         gridPanel = new JPanel();
         gridPanel.setLayout(new GridLayout(gridSize, gridSize));
 
-        updateButton(gameState);
+        updateButton(inter, gameState);
     }
 
-    public void updateButton(int[][] gameState){
+    public void updateButton(Interface inter, int[][] gameState){
         // Create and add clickable buttons (cells) to the gridPanel
         gridPanel.removeAll();
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++){
-                JButton button = createClickableButton(gameState[i][j]);
+                JButton button = createClickableButton(inter, gameState[i][j]);
                 gridPanel.add(button);
             }
         }
@@ -35,18 +32,20 @@ public class GameInterface extends JFrame { // TODO Cambiar a JPanel
     }
 
     // Create a clickable JButton representing a cell in the grid
-    private JButton createClickableButton(int num) {
+    private JButton createClickableButton(Interface inter, int num) {
         //if (num == -1) num = gridSize*gridSize - 1;
         String filepath = "images/img" + num + ".jpg";
         ImageIcon icon = new ImageIcon(filepath);
         JButton button = new JButton(icon);
 
         button.setBackground(Color.WHITE); // Set background color
+        button.setActionCommand(Integer.toString(num));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int[][] nullstate = {{0,0,0},{0,0,0},{0,0,0}}; // TODO Eliminar
-                updateButton(nullstate); // TODO Añadir inter.getBoard()
+                int numeroInt = Integer.parseInt(button.getActionCommand());
+                inter.movePiece(numeroInt);
+                updateButton(inter, inter.getState());
             }
         });
         return button;
