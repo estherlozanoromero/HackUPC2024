@@ -62,6 +62,11 @@ public class ImageManager {
                     }
                 }
 
+                File directory = new File("images");
+
+                // Check if the directory doesn't exist
+                if (!directory.exists()) directory.mkdirs();
+
                 // Save or display the pieces as needed
                 for (int i = 0; i < panelSize*panelSize; i++) {
                     ImageIO.write(pieces[i], "jpg", new File("images/img" + i + ".jpg"));

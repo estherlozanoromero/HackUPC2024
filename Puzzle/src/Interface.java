@@ -6,6 +6,7 @@ public class Interface {
     private JFrame window;
     private MenuPanel menuPanel;
     private GameInterface gameInterface;
+    private EscPanel PausePanel;
 
     private int level;
 
@@ -33,11 +34,30 @@ public class Interface {
         window.setVisible(true);
     }
 
+    public void pause() {
+        this.PausePanel = new EscPanel(this);
+
+
+        window.getContentPane().removeAll();
+        window.add(PausePanel);
+        window.setJMenuBar(null);
+        window.revalidate();
+        window.repaint();
+    }
+
     public void play() {
         this.ctrl = new Controller(this.level);
         this.gameInterface = new GameInterface(this, this.ctrl.getSize(), this.ctrl.getState());
 
 
+        window.getContentPane().removeAll();
+        window.add(gameInterface);
+        window.setJMenuBar(null);
+        window.revalidate();
+        window.repaint();
+    }
+
+    public void resume() {
         window.getContentPane().removeAll();
         window.add(gameInterface);
         window.setJMenuBar(null);
