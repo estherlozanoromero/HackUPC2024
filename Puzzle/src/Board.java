@@ -47,6 +47,20 @@ public class Board {
         return pos;
     }
 
+    public int[] searchPos (int idx) {
+        int x = 0, y = 0;
+        for(int i = 0; i < size; ++i ) {
+            for (int j = 0; j < size; ++j) {
+                if (state[i][j] == idx) {
+                    x = i;
+                    y = j;
+                    return new int[]{x, y};
+                }
+            }
+        }
+        return new int[]{x, y};
+    }
+
     public int posToIdx(int posx, int posy) {
         return posx*size+posy;
     }

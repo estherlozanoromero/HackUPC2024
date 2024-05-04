@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +39,9 @@ public class GameInterface extends JPanel {
         ImageIcon icon = new ImageIcon(filepath);
         JButton button = new JButton(icon);
 
+        button.setBorder(BorderFactory.createEmptyBorder());
+
+        button.setMargin(new Insets(0,0,0,0));
         button.setBackground(Color.WHITE); // Set background color
         button.setActionCommand(Integer.toString(num));
         button.addActionListener(new ActionListener() {
@@ -45,7 +49,9 @@ public class GameInterface extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int numeroInt = Integer.parseInt(button.getActionCommand());
                 inter.movePiece(numeroInt);
+                System.out.println(numeroInt);
                 updateButton(inter, inter.getState());
+                inter.printBoardMove();
             }
         });
         return button;
