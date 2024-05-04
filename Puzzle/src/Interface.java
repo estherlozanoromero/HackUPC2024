@@ -57,7 +57,16 @@ public class Interface {
         window.repaint();
     }
 
+
     public void resume() {
+        window.getContentPane().removeAll();
+        window.add(gameInterface);
+        window.setJMenuBar(null);
+        window.revalidate();
+        window.repaint();
+    }
+
+    public void printBoardMove() {
         window.getContentPane().removeAll();
         window.add(gameInterface);
         window.setJMenuBar(null);

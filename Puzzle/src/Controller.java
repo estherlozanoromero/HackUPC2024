@@ -44,7 +44,10 @@ public class Controller {
     }
 
     public void move(int id){
-        int[] pos = board.idxToPos(id);
+
+        int[] pos = board.searchPos(id);
+        System.out.println(pos[0]);
+        System.out.println(pos[1]);
         if(board.checkMove(pos[0], pos[1])) {
             board.move(pos[0], pos[1]);
         }
