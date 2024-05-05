@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Interface {
 
@@ -49,7 +51,6 @@ public class Interface {
         this.ctrl = new Controller(this.level);
         this.gameInterface = new GameInterface(this, this.ctrl.getSize(), this.ctrl.getState());
 
-
         window.getContentPane().removeAll();
         window.add(gameInterface);
         window.setJMenuBar(null);
@@ -79,7 +80,7 @@ public class Interface {
     }
 
     public void setImage() {
-        ImageManager.getImageAndCrop(window.getHeight(), this.level);
+        ImageManager.getImageAndCrop(window.getHeight(), this.level+3);
     }
 
     public void closeApp() {

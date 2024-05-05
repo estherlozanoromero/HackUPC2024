@@ -47,6 +47,7 @@ public class GameInterface extends JPanel {
     private JButton createClickableButton(Interface inter, int num) {
         //if (num == -1) num = gridSize * gridSize - 1;
         String filepath = "images/img" + num + ".jpg";
+
         ImageIcon icon = new ImageIcon(filepath);
         JButton button = new JButton(icon);
 
