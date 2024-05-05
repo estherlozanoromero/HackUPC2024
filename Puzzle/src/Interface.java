@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.*;
 
 public class Interface {
 
@@ -7,6 +8,7 @@ public class Interface {
     private MenuPanel menuPanel;
     private GameInterface gameInterface;
     private EscPanel PausePanel;
+    //private VictoryPanel victory;
 
     private int level;
 
@@ -49,14 +51,20 @@ public class Interface {
         this.ctrl = new Controller(this.level);
         this.gameInterface = new GameInterface(this, this.ctrl.getSize(), this.ctrl.getState());
 
+        Runnable getMinMoves = () -> {
+            ctrl.executeAlgorithm();
+        };
+
+        Thread minMovesThread = new Thread(getMinMoves);
+        minMovesThread.start();
 
         window.getContentPane().removeAll();
+
         window.add(gameInterface);
         window.setJMenuBar(null);
         window.revalidate();
         window.repaint();
     }
-
 
     public void resume() {
         window.getContentPane().removeAll();
@@ -92,6 +100,7 @@ public class Interface {
 
     public void movePiece(int numeroInt) {
         this.ctrl.move(numeroInt);
+
     }
 }
 
