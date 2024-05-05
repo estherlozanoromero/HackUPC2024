@@ -40,10 +40,6 @@ public class AStarAlgorithm {
             Node current = queue.poll();
             visited.add(encode(current.board.state));
 
-            System.out.println("Checking board:");
-            current.board.printBoard();
-            System.out.println("actualCost: "+current.actualCost+" heuristicCost: "+current.heuristicCost);
-
             if (current.board.solved()) {
                 return current.actualCost;
             }

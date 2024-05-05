@@ -12,7 +12,7 @@ public class Interface {
 
     private ImageManager ImManager;
 
-    //private VictoryPanel victory;
+    private VictoryPanel victory;
 
 
     private int level;
@@ -40,6 +40,7 @@ public class Interface {
         window.add(menuPanel);
         window.setJMenuBar(null);
         window.setVisible(true);
+        window.setLocationRelativeTo(null);
     }
 
     public void pause() {
@@ -99,7 +100,7 @@ public class Interface {
     }
 
     public void closeApp() {
-
+        window.dispose();
     }
 
     public int[][] getState() {
@@ -109,6 +110,19 @@ public class Interface {
     public void movePiece(int numeroInt) {
         this.ctrl.move(numeroInt);
 
+    }
+
+    public boolean solved() {
+        return ctrl.getSolved();
+    }
+
+    public void createFinishedPanel() {
+        this.victory = new VictoryPanel(this, ctrl.Score());
+        window.getContentPane().removeAll();
+        window.add(victory);
+        window.setJMenuBar(null);
+        window.revalidate();
+        window.repaint();
     }
 }
 

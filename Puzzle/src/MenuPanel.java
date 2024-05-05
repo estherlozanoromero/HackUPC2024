@@ -15,7 +15,7 @@ public class MenuPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(50, 50, 20, 50);
+        gbc.insets = new Insets(5, 50, 5, 50);
 
         // Title
         JLabel titleLabel = new JLabel("Welcome to Puzzle Game");
@@ -24,8 +24,15 @@ public class MenuPanel extends JPanel {
         add(titleLabel, gbc);
 
         // Buttons
-        JPanel panelButton = new JPanel();
-        panelButton.setLayout(new BoxLayout(panelButton, BoxLayout.Y_AXIS));
+        JPanel panelButton1 = new JPanel();
+        panelButton1.setLayout(new BoxLayout(panelButton1, BoxLayout.Y_AXIS));
+
+        JPanel panelConfig = new JPanel();
+        panelConfig.setLayout(new BoxLayout(panelConfig, BoxLayout.X_AXIS));
+
+        JPanel panelButton2 = new JPanel();
+        panelButton2.setLayout(new BoxLayout(panelButton2, BoxLayout.Y_AXIS));
+
         JButton play = new JButton("Play");
         JButton exit = new JButton("Exit");
 
@@ -34,12 +41,12 @@ public class MenuPanel extends JPanel {
 
 
         // Button size
-        Dimension buttonSize = new Dimension(300, 25);
+        Dimension buttonSize = new Dimension(185, 25);
         play.setMinimumSize(buttonSize);
         play.setPreferredSize(buttonSize);
         play.setMaximumSize(buttonSize);
 
-        Dimension buttonlevelSize = new Dimension(150, 25);
+        Dimension buttonlevelSize = new Dimension(90, 25);
 
         this.level.setMinimumSize(buttonlevelSize);
         this.level.setPreferredSize(buttonlevelSize);
@@ -53,17 +60,21 @@ public class MenuPanel extends JPanel {
         exit.setPreferredSize(buttonSize);
         exit.setMaximumSize(buttonSize);
 
-        panelButton.add(Box.createVerticalStrut(10));
-        panelButton.add(play);
-        panelButton.add(Box.createVerticalStrut(10));
-        panelButton.add(this.level);
-        panelButton.add(Box.createVerticalStrut(10));
-        panelButton.add(setImg);
-        panelButton.add(Box.createVerticalStrut(10));
-        panelButton.add(exit);
+
+        panelButton1.add(play);
+
+        panelConfig.add(this.level);
+        panelConfig.add(Box.createHorizontalStrut(5));
+        panelConfig.add(setImg);
+
+        panelButton2.add(exit);
 
         gbc.gridy++;
-        add(panelButton, gbc);
+        add(panelButton1, gbc);
+        gbc.gridy++;
+        add(panelConfig, gbc);
+        gbc.gridy++;
+        add(panelButton2, gbc);
 
         // Button listeners
         play.addActionListener(e -> inter.play());

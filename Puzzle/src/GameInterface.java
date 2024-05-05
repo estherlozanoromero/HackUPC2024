@@ -75,9 +75,11 @@ public class GameInterface extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int numeroInt = Integer.parseInt(button.getActionCommand());
                 inter.movePiece(numeroInt);
-                System.out.println(numeroInt);
                 updateButton(inter, inter.getState());
                 inter.printBoardMove();
+                if(inter.solved()) {
+                    inter.createFinishedPanel();
+                }
             }
         });
         return button;

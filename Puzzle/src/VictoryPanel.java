@@ -10,7 +10,7 @@ public class VictoryPanel extends JPanel {
     JButton level;
     int numLevel = 0;
 
-    public VictoryPanel (Interface inter) {
+    public VictoryPanel (Interface inter, int score) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -24,41 +24,53 @@ public class VictoryPanel extends JPanel {
         add(titleLabel, gbc);
 
         // Buttons
+        JPanel panelStars = new JPanel();
+        panelStars.setLayout(new BoxLayout(panelStars, BoxLayout.X_AXIS));
+        String path_star = "icon/star.png";
+        ImageIcon icon = new ImageIcon(path_star);
+
+        // Scale the image to half its original size
+        Image scaledImage = icon.getImage().getScaledInstance(icon.getIconWidth() / 2, icon.getIconHeight() / 2, Image.SCALE_DEFAULT);
+        icon = new ImageIcon(scaledImage);
+
+
+        JLabel star1 = new JLabel(icon);
+        panelStars.add(Box.createHorizontalStrut(10));
+        panelStars.add(star1);
+
+        if (score > 0) {
+            JLabel star2 = new JLabel(icon);
+            panelStars.add(Box.createHorizontalStrut(10));
+            panelStars.add(star2);
+        }
+
+        if (score > 1) {
+            JLabel star3 = new JLabel(icon);
+            panelStars.add(Box.createHorizontalStrut(10));
+            panelStars.add(star3);
+        }
+        add(panelStars);
+
+        // Buttons
         JPanel panelButton = new JPanel();
         panelButton.setLayout(new BoxLayout(panelButton, BoxLayout.Y_AXIS));
-        JButton play = new JButton("Play");
-        JButton exit = new JButton("Menu");
-
-        this.level = new JButton("Easy");
-        JButton setImg = new JButton("Set Image");
+        JButton menu = new JButton("Menu");
+        JButton exit = new JButton("Exit");
 
 
         // Button size
         Dimension buttonSize = new Dimension(300, 25);
-        play.setMinimumSize(buttonSize);
-        play.setPreferredSize(buttonSize);
-        play.setMaximumSize(buttonSize);
 
-        Dimension buttonlevelSize = new Dimension(150, 25);
-
-        this.level.setMinimumSize(buttonlevelSize);
-        this.level.setPreferredSize(buttonlevelSize);
-        this.level.setMaximumSize(buttonlevelSize);
-
-        setImg.setMinimumSize(buttonlevelSize);
-        setImg.setPreferredSize(buttonlevelSize);
-        setImg.setMaximumSize(buttonlevelSize);
+        menu.setMinimumSize(buttonSize);
+        menu.setPreferredSize(buttonSize);
+        menu.setMaximumSize(buttonSize);
 
         exit.setMinimumSize(buttonSize);
         exit.setPreferredSize(buttonSize);
         exit.setMaximumSize(buttonSize);
 
         panelButton.add(Box.createVerticalStrut(10));
-        panelButton.add(play);
-        panelButton.add(Box.createVerticalStrut(10));
-        panelButton.add(this.level);
-        panelButton.add(Box.createVerticalStrut(10));
-        panelButton.add(setImg);
+        panelButton.add(menu);
         panelButton.add(Box.createVerticalStrut(10));
         panelButton.add(exit);
 
@@ -66,14 +78,7 @@ public class VictoryPanel extends JPanel {
         add(panelButton, gbc);
 
         // Button listeners
-        play.addActionListener(e -> inter.play());
-
-        this.level.addActionListener(e -> {
-            changeLevel();
-            inter.setLevel(numLevel);
-        });
-
-        setImg.addActionListener(e -> inter.setImage());
+        menu.addActionListener(e -> inter.createMenu());
 
         exit.addActionListener(e -> inter.closeApp());
 
@@ -88,9 +93,7 @@ public class VictoryPanel extends JPanel {
             }
         };
 
-        play.addKeyListener(keyAdapter);
-        this.level.addKeyListener(keyAdapter);
-        setImg.addKeyListener(keyAdapter);
+        menu.addKeyListener(keyAdapter);
         exit.addKeyListener(keyAdapter);
     }
 
