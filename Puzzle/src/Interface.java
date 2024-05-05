@@ -7,6 +7,7 @@ public class Interface {
     private MenuPanel menuPanel;
     private GameInterface gameInterface;
     private EscPanel PausePanel;
+    private ImageManager ImManager;
 
     private int level;
 
@@ -16,6 +17,7 @@ public class Interface {
         window.setTitle("Puzzle Game");
         window.setSize(600, 600);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ImManager = new ImageManager(600);
 
         this.menuPanel = new MenuPanel(this);
     }
@@ -46,6 +48,7 @@ public class Interface {
     }
 
     public void play() {
+        ImManager.getImageAndCrop(600, this.level+3);
         this.ctrl = new Controller(this.level);
         this.gameInterface = new GameInterface(this, this.ctrl.getSize(), this.ctrl.getState());
 
@@ -79,7 +82,7 @@ public class Interface {
     }
 
     public void setImage() {
-        ImageManager.getImageAndCrop(window.getHeight(), this.level);
+        ImManager.selectImage(600);
     }
 
     public void closeApp() {

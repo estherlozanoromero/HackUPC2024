@@ -2,6 +2,10 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class GameInterface extends JPanel {
     private JPanel gridPanel;
@@ -45,15 +49,27 @@ public class GameInterface extends JPanel {
 
     // Create a clickable JButton representing a cell in the grid
     private JButton createClickableButton(Interface inter, int num) {
-        //if (num == -1) num = gridSize * gridSize - 1;
-        String filepath = "images/img" + num + ".jpg";
-        ImageIcon icon = new ImageIcon(filepath);
+        ImageIcon icon = new ImageIcon();
+        if (num != -1) {
+            String filepath = "images/img" + num + ".jpg";
+            try {
+                // Load the image from the file path
+                BufferedImage image = ImageIO.read(new File(filepath));
+                // Create ImageIcon from the loaded image
+                icon = new ImageIcon(image);
+            } catch (IOException e) {
+                System.out.println(num);
+                // Handle IOException
+                e.printStackTrace();
+                return null;
+            }
+        }
         JButton button = new JButton(icon);
 
         button.setBorder(BorderFactory.createEmptyBorder());
 
         button.setMargin(new Insets(0,0,0,0));
-        button.setBackground(Color.WHITE); // Set background color
+        button.setBackground(Color.LIGHT_GRAY); // Set background color
         button.setActionCommand(Integer.toString(num));
         button.addActionListener(new ActionListener() {
             @Override

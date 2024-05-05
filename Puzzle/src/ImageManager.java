@@ -6,6 +6,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageManager {
+    BufferedImage originalImage;
+
+    public ImageManager(int windowSize) {
+        try {
+            // Load the image
+            originalImage = ImageIO.read(new File("images/Biene.jpeg"));
+            originalImage = scaleImageToFit(originalImage, windowSize, windowSize);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static BufferedImage scaleImageToFit(BufferedImage originalImage, int targetWidth, int targetHeight) {
         // Calculate scaling factors to fit the image within the target dimensions
         double scaleX = (double) targetWidth / originalImage.getWidth();
@@ -26,7 +38,7 @@ public class ImageManager {
         return scaledImage;
     }
 
-    public static void getImageAndCrop(int windowSize, int panelSize) {
+    public void selectImage(int windowSize) {
         // Create a file chooser
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Choose an image file");
@@ -41,39 +53,46 @@ public class ImageManager {
 
             try {
                 // Load the image
-                BufferedImage originalImage = ImageIO.read(selectedFile);
+                originalImage = ImageIO.read(selectedFile);
 
                 originalImage = scaleImageToFit(originalImage, windowSize, windowSize);
-
-                // Calculate the size of each piece
-                int pieceSize = windowSize / panelSize;
-
-                int heightOffset = (originalImage.getHeight()-windowSize)/2;
-                int widthOffset = (originalImage.getWidth()-windowSize)/2;
-
-                // Create an array to hold the 9 pieces
-                BufferedImage[] pieces = new BufferedImage[panelSize*panelSize];
-
-                // Divide the image into 9 pieces
-                for (int row = 0; row < panelSize; row++) {
-                    for (int col = 0; col < panelSize; col++) {
-                        // Create a new BufferedImage for each piece
-                        pieces[row * panelSize + col] = originalImage.getSubimage(widthOffset + col * pieceSize,  heightOffset + row * pieceSize, pieceSize, pieceSize);
-                    }
-                }
-
-                File directory = new File("images");
-
-                // Check if the directory doesn't exist
-                if (!directory.exists()) directory.mkdirs();
-
-                // Save or display the pieces as needed
-                for (int i = 0; i < panelSize*panelSize; i++) {
-                    ImageIO.write(pieces[i], "jpg", new File("images/img" + i + ".jpg"));
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void getImageAndCrop(int windowSize, int panelSize) {
+        try{
+            int pieceSize = windowSize / panelSize;
+
+            int heightOffset = (originalImage.getHeight()-windowSize)/2;
+            int widthOffset = (originalImage.getWidth()-windowSize)/2;
+            if (heightOffset < 0) heightOffset = 0;
+            if (widthOffset < 0) widthOffset = 0;
+
+            // Create an array to hold the 9 pieces
+            BufferedImage[] pieces = new BufferedImage[panelSize*panelSize];
+
+            // Divide the image into 9 pieces
+            for (int row = 0; row < panelSize; row++) {
+                for (int col = 0; col < panelSize; col++) {
+                    // Create a new BufferedImage for each piece
+                    pieces[row * panelSize + col] = originalImage.getSubimage(widthOffset + col * pieceSize,  heightOffset + row * pieceSize, pieceSize, pieceSize);
+                }
+            }
+
+            File directory = new File("images");
+
+            // Check if the directory doesn't exist
+            if (!directory.exists()) directory.mkdirs();
+
+            // Save or display the pieces as needed
+            for (int i = 0; i < panelSize*panelSize; i++) {
+                ImageIO.write(pieces[i], "jpg", new File("images/img" + i + ".jpg"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
